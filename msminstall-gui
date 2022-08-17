@@ -11,7 +11,7 @@ zenity --password | sudo -Sv || fatal "Unable to sudo"
 WALL=$(zenity --entry \
        --width 500 \
        --title "Walpaper Directory" \
-       --text "Enter Wallpaper Pack name (Must be same as Directory)") | if $WALL ==""; exit fi
+       --text "Enter Wallpaper Pack name (Must be same as Directory)")
 
 ./build $WALL
 
@@ -26,8 +26,8 @@ mkdir ./output
 cp -r ./$WALL ./output
 cp $WALL.xml ./output/$WALL
 
-# 	sudo cp -r ./$WALL /usr/share/backgrounds/
-# 	sudo cp $WALL.xml /usr/share/gnome-background-properties/
+	sudo cp -r ./$WALL /usr/share/backgrounds/
+	sudo cp $WALL.xml /usr/share/gnome-background-properties/
 
 zenity --info \
        --title "Output. Installation done." \
