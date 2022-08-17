@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf /usr/share/backgrounds/$1
+rm -rf /usr/share/gnome-backgrounds-properties/$1.xml

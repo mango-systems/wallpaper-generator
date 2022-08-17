@@ -1,0 +1,42 @@
+#!/bin/bash
+# run "sudo ./msminstall wallpaper-source-folder"
+fatal() {
+  zenity --error --title "Not SUDO!" --text $@
+  exit 1
+}
+trap 'sudo -k' EXIT
+zenity --password | sudo -Sv || fatal "Unable to sudo"
+
+
+WALL=$(zenity --entry \
+       --width 500 \
+       --title "Walpaper Directory" \
+       --text "Enter Wallpaper Pack name (Must be same as Directory)") | if $WALL ==""; exit fi
+
+./build $WALL
+
+echo "python program executed"
+	# sed '1s/^\xEF\xBB\xBF//' -i debloantu-wallpapers.xml
+	# echo "BOM removed"
+
+mkdir ./output
+	# if output exists, it will throw an error, but will be ignored
+
+	## outputs into a folder for organisation (for easier compilation of packages)
+cp -r ./$WALL ./output
+cp $WALL.xml ./output/$WALL
+
+# 	sudo cp -r ./$WALL /usr/share/backgrounds/
+# 	sudo cp $WALL.xml /usr/share/gnome-background-properties/
+
+zenity --info \
+       --title "Output. Installation done." \
+       --text "[ROOT] Gnome-background-properties Dir: \n $(ls /usr/share/gnome-background-properties) \n \
+[ROOT] backgrounds Dir: \n  $(ls /usr/share/backgrounds)"
+
+# 	echo "== list /usr/share/backgrounds: $(ls /usr/share/backgrounds)"
+# 	echo "== list /usr/share/gnome-background-properties: $(ls /usr/share/gnome-background-properties)"
+
+
+# create var named folder- so it will pass to python program
+# and prevent confusions to create now folder
